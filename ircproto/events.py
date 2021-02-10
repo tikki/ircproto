@@ -34,11 +34,11 @@ class IRCEvent(object):
             if not param:
                 continue
 
-            if ' ' in param:
-                if i == len(params) - 1:
+            if i == len(params) - 1:
+                if ' ' in param or param[:1] == ':':
                     param = ':' + param
-                else:
-                    raise ProtocolError('only the last parameter can contain spaces')
+            elif ' ' in param:
+                raise ProtocolError('only the last parameter can contain spaces')
 
             if i > 0:
                 buffer += ' '
